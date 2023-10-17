@@ -1,12 +1,24 @@
-import { StyleSheet, View, FlatList } from "react-native";
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  Text,
+  ActivityIndicator,
+} from "react-native";
 import QuestionListItem from "../src/components/QuestionListItem";
-import questionData from "../src/data/questions.json";
 
+import { useQuery, gql } from "@apollo/client";
+import { getQuestion } from "../src/query/Queries";
 export default function Page() {
+  const { loading, error, data } = useQuery(getQuestion);
+  if (loading) return <ActivityIndicator size={"large"} />;
+  if (error) return <Text>Error :(</Text>;
+  const items = data?.questions?.items;
+
   return (
     <View style={styles.container}>
       <FlatList
-        data={questionData.items}
+        data={items}
         renderItem={({ item }) => <QuestionListItem question={item} />}
       />
     </View>

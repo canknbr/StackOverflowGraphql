@@ -1,31 +1,35 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { Entypo } from "@expo/vector-icons";
-
+import { Link } from "expo-router";
+import Markdown from "react-native-markdown-display";
+import { decode } from "html-entities";
 const QuestionListItem = ({ question }) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.stats}>
-        {question.score} votes •{" "}
-        {question.is_answered && (
-          <Entypo name="check" size={12} color="limegreen" />
-        )}
-        {question.answer_count} answers • {question.view_count} views
-      </Text>
-      <Text style={styles.title}>{question.title}</Text>
-      <Text style={styles.body} numberOfLines={2}>
-        {question.body_markdown}
-      </Text>
-      <View style={styles.tags}>
-        {question.tags.map((tag) => (
-          <Text key={tag} style={styles.tag}>
-            {tag}
-          </Text>
-        ))}
-        <Text style={styles.time}>
-          asked {new Date(question.creation_date * 1000).toDateString()}
+    <Link href={`/${question.question_id}`} asChild>
+      <Pressable style={styles.container}>
+        <Text style={styles.stats}>
+          {question.score} votes •{" "}
+          {question.is_answered && (
+            <Entypo name="check" size={12} color="limegreen" />
+          )}
+          {question.answer_count} answers • {question.view_count} views
         </Text>
-      </View>
-    </View>
+        <Text style={styles.title}>{decode(question.title)}</Text>
+        <Text style={styles.body} numberOfLines={2}>
+          {decode(question.body_markdown)}
+        </Text>
+        <View style={styles.tags}>
+          {question.tags.map((tag) => (
+            <Text key={tag} style={styles.tag}>
+              {tag}
+            </Text>
+          ))}
+          <Text style={styles.time}>
+            asked {new Date(question.creation_date * 1000).toDateString()}
+          </Text>
+        </View>
+      </Pressable>
+    </Link>
   );
 };
 
