@@ -1,14 +1,7 @@
-# Expo Router Example
+# StackOverflow sample with Apollo GraphQL, markdown syntax and html-decode
 
-Use [`expo-router`](https://expo.github.io/router) to build native navigation using files in the `app/` directory.
-
-## 🚀 How to use
-
-```sh
-npx create-expo-app -e with-router
-```
-
-## 📝 Notes
-
-- [Expo Router: Docs](https://expo.github.io/router)
-- [Expo Router: Repo](https://github.com/expo/router)
+<div style="display: flex; flex-direction: row;">
+    <img src="src/ss/img1.png" width="250" />
+    <img src="src/ss/img2.png" width="250" />
+    <img src="src/ss/img3.png" width="250" />
+</div>
